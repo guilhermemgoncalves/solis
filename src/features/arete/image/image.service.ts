@@ -5,8 +5,8 @@ import {applicationImages} from "../../../assets/mocks/mocks";
 @Injectable()
 export class ImageService {
 
-    getImage(key: string): string {
-        const image = this.listImages().find(img => img.key === key)?.content;
+    getImage(key: string): ApplicationImageDto {
+        const image = this.listImages().find(img => img.key === key);
 
         if (image) {
             return image;
