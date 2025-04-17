@@ -1,5 +1,5 @@
 export class ApplicationImageDto {
     key: string;
-    format: string;
+    extension: string;
     name: string;
 }
