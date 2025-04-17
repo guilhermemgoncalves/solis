@@ -25,7 +25,7 @@ export class ImageService {
         return randomUUID();
     }
 
-    saveImages(uploadedImages: { key: string; content: any; format: string, name: string }[]) {
+    saveImages(uploadedImages: ApplicationImageDto[]) {
         uploadedImages.forEach((image) => {
             applicationImages.push(image);
         });
