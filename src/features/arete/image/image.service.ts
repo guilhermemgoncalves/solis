@@ -3,11 +3,16 @@ import { ApplicationImageDto } from './dtos/application-image.dto';
 import { applicationImages } from '../../../assets/mocks/mocks';
 import { randomUUID } from 'crypto';
 import {FileSystemService} from "../../../core/services/file-system/file-system.service";
+import {InstaGalleryService} from "../landing-page/insta-gallery/insta-gallery.service";
+import {InstagramImageDto} from "../landing-page/insta-gallery/instagram-image.dto";
 
 
 @Injectable()
 export class ImageService {
-  constructor(private readonly fileManager: FileSystemService) {}
+  constructor(
+      private readonly fileManager: FileSystemService,
+      private readonly instaGalleryService: InstaGalleryService,
+  ) {}
 
   getImage(key: string): ApplicationImageDto {
     const image = this.listImages().find((img) => img.key === key);
@@ -45,6 +50,13 @@ export class ImageService {
         name: file.originalname,
       };
 
+      const instaImage : InstagramImageDto ={
+        key: imageDto.key,
+        description: 'Instagram post image',
+        link: 'https://www.instagram.com/p/DBcmW7psNc_/?img_index=1'
+      }
+
+      this.instaGalleryService.save(instaImage);
       this.fileManager.saveImage(file, imageDto.key, imageDto.extension);
       this.persistImage(imageDto);
     });
