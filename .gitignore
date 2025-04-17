@@ -42,3 +42,6 @@ logs/
 
 # Optional: If you use npm's cache
 .npm
+
+# Other
+/uploads/*
