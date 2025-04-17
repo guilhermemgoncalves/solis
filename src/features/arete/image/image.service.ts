@@ -1,6 +1,7 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
 import {ApplicationImageDto} from "./dtos/application-image.dto";
-import {applicationImages} from "../../../assets/mocks/mocks";
+import { applicationImages } from '../../../assets/mocks/mocks';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class ImageService {
@@ -20,4 +21,14 @@ export class ImageService {
         return applicationImages;
     }
 
+    generateKey(): string {
+        return randomUUID();
+    }
+
+    saveImages(uploadedImages: { key: string; content: any; format: string, name: string }[]) {
+        uploadedImages.forEach((image) => {
+            applicationImages.push(image);
+        });
+        return uploadedImages;
+    }
 }
