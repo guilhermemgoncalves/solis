@@ -56,7 +56,6 @@ export class ImageService {
         link: 'https://www.instagram.com/p/DBcmW7psNc_/?img_index=1'
       }
 
-      this.instaGalleryService.save(instaImage);
       this.fileManager.saveImage(file, imageDto.key, imageDto.extension);
       this.persistImage(imageDto);
     });

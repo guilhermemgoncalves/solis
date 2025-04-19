@@ -3,4 +3,4 @@ import {InstagramImageDto} from "../../features/arete/landing-page/insta-gallery
 
 
 export const applicationImages : Array<ApplicationImageDto> = [];
-export const instaGallery: Array<InstagramImageDto> = [];
+export let instaGallery: Array<InstagramImageDto> = [];

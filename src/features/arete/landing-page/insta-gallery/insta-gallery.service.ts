@@ -5,6 +5,13 @@ import {instaGallery} from "../../../../assets/mocks/mocks";
 @Injectable()
 export class InstaGalleryService {
 
+    saveImages(images: InstagramImageDto[]){
+        instaGallery.splice(0, instaGallery.length);
+
+        images.forEach((image) => {
+            this.save(image);
+        });
+    }
 
 
     save(image: InstagramImageDto) {
