@@ -3,9 +3,11 @@ import { ImageService } from './image.service';
 import { ImageController } from './image.controller';
 import { FileSystemService } from '../../../core/services/file-system/file-system.service';
 import {InstaGalleryService} from "../landing-page/insta-gallery/insta-gallery.service";
+import { LandingPageModule } from './landing-page/landing-page.module';
 
 @Module({
   controllers: [ImageController],
   providers: [ImageService, FileSystemService, InstaGalleryService],
+  imports: [LandingPageModule],
 })
 export class ImageModule {}

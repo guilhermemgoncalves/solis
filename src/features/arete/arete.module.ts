@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ImageModule } from './image/image.module';
-import { InstaGalleryModule } from './landing-page/insta-gallery/insta-gallery.module';
+import { LandingPageModule } from './landing-page/landing-page.module';
 
 @Module({
-  imports: [ImageModule, InstaGalleryModule]
+  imports: [ImageModule,  LandingPageModule]
 })
 export class AreteModule {}
