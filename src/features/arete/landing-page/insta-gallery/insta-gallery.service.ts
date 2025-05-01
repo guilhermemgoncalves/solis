@@ -1,23 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import {InstagramImageDto} from "./instagram-image.dto";
-import {instaGallery} from "../../../../assets/mocks/mocks";
+import {InstaGallery} from "./models/insta-gallery.model";
+import {InstaGalleryMongoRepository} from "./repository/insta-gallery-repository";
 
 @Injectable()
 export class InstaGalleryService {
 
-    saveImages(images: InstagramImageDto[]){
-        instaGallery.splice(0, instaGallery.length);
+    constructor(private readonly repository: InstaGalleryMongoRepository) {}
 
-        images.forEach((image) => {
-            this.save(image);
-        });
+    async saveImages(images: InstagramImageDto[]) {
+        await this.repository.deleteAll()
+        for (const image of images) {
+            await this.save(image);
+        }
     }
 
-    save(image: InstagramImageDto) {
-        instaGallery.push(image);
+    async save(imageDto: InstagramImageDto) {
+        return this.repository.create(imageDto as InstaGallery);
     }
 
-    list(): InstagramImageDto[] {
-        return instaGallery;
+    async list(): Promise<InstaGallery[]> {
+        return this.repository.findAll();
     }
 }

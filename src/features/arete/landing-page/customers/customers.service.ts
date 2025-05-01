@@ -1,23 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import {CustomersImageDto} from "./customers-image.dto";
-import {customersGallery} from "../../../../assets/mocks/mocks";
+import { CustomersImageDto } from "./customers-image.dto";
+import { CustomerMongoRepository } from './repository/customer-repository';
+import { Customer } from './models/customer.model';
 
 @Injectable()
 export class CustomersService {
+    constructor(private readonly repository: CustomerMongoRepository) {}
 
-    saveImages(images: CustomersImageDto[]){
-        customersGallery.splice(0, customersGallery.length);
-
-        images.forEach((image) => {
-            this.save(image);
-        });
+    async saveImages(images: CustomersImageDto[]) {
+        await this.repository.deleteAll()
+        for (const image of images) {
+            await this.save(image);
+        }
     }
 
-    save(image: CustomersImageDto) {
-        customersGallery.push(image);
+    async save(imageDto: CustomersImageDto) {
+        return this.repository.create(imageDto as Customer);
     }
 
-    list(): CustomersImageDto[] {
-        return customersGallery;
+    async list(): Promise<Customer[]> {
+        return this.repository.findAll();
     }
 }

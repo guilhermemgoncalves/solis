@@ -1,23 +1,26 @@
 import { Injectable } from '@nestjs/common';
+import {UtilityCompany} from "./models/utility-company.model";
+import { UtilityCompanyMongoRepository } from './repository/utility-company-repository';
 import {UtilityCompaniesImageDto} from "./utility-companies-image.dto";
-import {customersGallery, utilityCompaniesGallery} from "../../../../assets/mocks/mocks";
+
 
 @Injectable()
 export class UtilityCompaniesService {
 
-    saveImages(images: UtilityCompaniesImageDto[]){
-        utilityCompaniesGallery.splice(0, customersGallery.length);
+    constructor(private readonly repository: UtilityCompanyMongoRepository) {}
 
-        images.forEach((image) => {
-            this.save(image);
-        });
+    async saveImages(images: UtilityCompaniesImageDto[]) {
+        await this.repository.deleteAll()
+        for (const image of images) {
+            await this.save(image);
+        }
     }
 
-    save(image: UtilityCompaniesImageDto) {
-        utilityCompaniesGallery.push(image);
+    async save(imageDto: UtilityCompaniesImageDto) {
+        return this.repository.create(imageDto as UtilityCompany);
     }
 
-    list(): UtilityCompaniesImageDto[] {
-        return utilityCompaniesGallery;
+    async list(): Promise<UtilityCompany[]> {
+        return this.repository.findAll();
     }
 }
