@@ -16,3 +16,4 @@
   - [ ] Enviar video
 - Sessão Serviços
   - [ ] Enviar imagens 
+  - Redeploy
