@@ -6,14 +6,18 @@ import {AreteModule} from "./features/arete/arete.module";
 import {MongooseModule} from "@nestjs/mongoose";
 import * as process from "node:process";
 import {ConfigModule} from "@nestjs/config";
+import {AuthModule} from "./features/graph/auth/auth.module";
 
 @Module({
-  imports: [CompanyModule, AreteModule,
+  imports: [CompanyModule,
+    // AreteModule,
+      AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env'
     }),
-  MongooseModule.forRoot(process.env.MONGO_DATABASE_URL || '', {dbName: process.env.ARETE_DB_NAME}), ],
+  // MongooseModule.forRoot(process.env.MONGO_DATABASE_URL || '', {dbName: process.env.ARETE_DB_NAME}), ],
+      ],
   controllers: [AppController],
   providers: [AppService],
 })
